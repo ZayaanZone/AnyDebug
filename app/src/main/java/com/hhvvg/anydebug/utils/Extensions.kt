@@ -20,8 +20,11 @@ package com.hhvvg.anydebug.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.res.Resources
 import android.graphics.Rect
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewDebug
@@ -237,4 +240,15 @@ fun String.formatToExportedProperties(): Map<String, MutableList<ViewExportedPro
         }
     }
     return result
+}
+
+private const val GITHUB_PAGE_URL = "https://github.com/gitofleonardo/AnyDebug"
+
+fun Context.startGithubPage() {
+    val intent = Intent().apply {
+        action = Intent.ACTION_VIEW
+        data = Uri.parse(GITHUB_PAGE_URL)
+        flags = flags or FLAG_ACTIVITY_NEW_TASK
+    }
+    startActivity(intent)
 }

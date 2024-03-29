@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.hhvvg.anydebug.R
 import com.hhvvg.anydebug.utils.createModuleContext
 import com.hhvvg.anydebug.utils.moduleLayoutInflater
+import com.hhvvg.anydebug.utils.startGithubPage
 import com.hhvvg.anydebug.view.ActivityPreviewWindow
 import com.hhvvg.anydebug.view.SettingContent
 import com.hhvvg.anydebug.view.SettingsFactory
@@ -25,6 +26,7 @@ class MainPanelFragment(private val window: ActivityPreviewWindow, private var t
 
     private lateinit var okButton: View
     private lateinit var settingsContainer: ViewGroup
+    private lateinit var githubLinkBtn: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +35,14 @@ class MainPanelFragment(private val window: ActivityPreviewWindow, private var t
         val view = inflater.inflate(R.layout.fragment_main_panel, container, false)
         okButton = view.findViewById(R.id.ok_button)
         settingsContainer = view.findViewById(R.id.settings_container)
+        githubLinkBtn = view.findViewById(R.id.about_proj_link)
 
         okButton.setOnClickListener {
             factory?.commit()
             onCommitListener?.run()
+        }
+        githubLinkBtn.setOnClickListener {
+            requireContext().startGithubPage()
         }
         return view
     }
