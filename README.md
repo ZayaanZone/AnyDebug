@@ -20,6 +20,7 @@ This software relies on the [Xposed Framework](https://github.com/rovo89/Xposed)
 + Change text of a `TextView`
 + Change text size
 + Change image, but currently only supports image url.
++ Properties viewer.
 + May be more...
 
 # Sample
