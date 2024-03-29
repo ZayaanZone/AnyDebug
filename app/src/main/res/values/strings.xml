@@ -25,4 +25,7 @@
     <string name="image_view_hint">Only supports http/https url now.</string>
     <string name="title_image_url">Image Url</string>
     <string name="title_image_scale_type">Scale Type</string>
+    <string name="title_properties">Properties</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

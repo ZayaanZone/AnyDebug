@@ -273,6 +273,7 @@ class WindowController(
         windowClient.updateWindowAttributes(windowParams)
         animateWindowSize(finalWidth, finalHeight)
         moveMaximizeWindowCenter()
+        windowClient.onMaximize()
     }
 
     fun minimizeWindow(velocityX: Float = 0f, velocityY: Float = 0f) {
@@ -287,6 +288,7 @@ class WindowController(
         val finalHeight = miniWidowSize.y
         animateWindowSize(finalWidth, finalHeight)
         dockToEdge(velocityX, velocityY)
+        windowClient.onMinimize()
     }
 
     fun onTouchEvent(event: MotionEvent) {

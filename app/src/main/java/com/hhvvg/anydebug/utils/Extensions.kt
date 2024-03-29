@@ -24,6 +24,7 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewDebug
 import android.view.ViewGroup
 import com.hhvvg.anydebug.BuildConfig
 import com.hhvvg.anydebug.InjectHookEntry
@@ -33,13 +34,19 @@ import de.robv.android.xposed.XC_MethodHook.Unhook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
+import java.io.BufferedWriter
+import java.io.StringWriter
 import java.util.regex.Pattern
 import kotlin.reflect.KClass
 
 /**
  * Do action before method called.
  */
-fun KClass<*>.doBefore(methodName: String, vararg methodParams: Class<*>, callback: (XC_MethodHook.MethodHookParam) -> Unit): Unhook {
+fun KClass<*>.doBefore(
+    methodName: String,
+    vararg methodParams: Class<*>,
+    callback: (XC_MethodHook.MethodHookParam) -> Unit
+): Unhook {
     val method = XposedHelpers.findMethodBestMatch(this.java, methodName, *methodParams)
     val methodHook = object : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam) {
@@ -52,7 +59,11 @@ fun KClass<*>.doBefore(methodName: String, vararg methodParams: Class<*>, callba
 /**
  * Do action after method called.
  */
-fun KClass<*>.doAfter(methodName: String, vararg methodParams: Class<*>, callback: (XC_MethodHook.MethodHookParam) -> Unit): Unhook {
+fun KClass<*>.doAfter(
+    methodName: String,
+    vararg methodParams: Class<*>,
+    callback: (XC_MethodHook.MethodHookParam) -> Unit
+): Unhook {
     val method = XposedHelpers.findMethodBestMatch(this.java, methodName, *methodParams)
     val methodHook = object : XC_MethodHook() {
         override fun afterHookedMethod(param: MethodHookParam) {
@@ -65,7 +76,11 @@ fun KClass<*>.doAfter(methodName: String, vararg methodParams: Class<*>, callbac
 /**
  * Overrides method call.
  */
-fun KClass<*>.override(methodName: String, vararg methodParams: Class<*>, callback: (XC_MethodHook.MethodHookParam) -> Any?): Unhook {
+fun KClass<*>.override(
+    methodName: String,
+    vararg methodParams: Class<*>,
+    callback: (XC_MethodHook.MethodHookParam) -> Any?
+): Unhook {
     val method = XposedHelpers.findMethodBestMatch(this.java, methodName, *methodParams)
     val methodHook = object : XC_MethodReplacement() {
         override fun replaceHookedMethod(param: MethodHookParam): Any? {
@@ -78,19 +93,26 @@ fun KClass<*>.override(methodName: String, vararg methodParams: Class<*>, callba
 /**
  * Calls method with specific name
  */
-fun Any.call(method: String, vararg args: Any): Any? {
+fun Any.call(method: String, vararg args: Any?): Any? {
     return XposedHelpers.callMethod(this, method, *args)
 }
 
 /**
  * Guarded call a method
  */
-fun Any.guardedCall(method: String, vararg args: Any) {
+fun Any.guardedCall(method: String, vararg args: Any?) {
     try {
         call(method, *args)
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+/**
+ * Call a static method
+ */
+fun Class<*>.call(method: String, vararg args: Any?): Any? {
+    return XposedHelpers.callStaticMethod(this, method, *args)
 }
 
 /**
@@ -177,4 +199,42 @@ fun Context.topContext(): Context {
         top = top.baseContext
     }
     return top
+}
+
+/**
+ * Dump view to string
+ */
+fun View.dumpView(): String {
+    val sw = StringWriter()
+    val bw = BufferedWriter(sw)
+    ViewDebug::class.java.call("dumpView", context, this, bw, 0, true)
+    bw.flush()
+    return sw.toString()
+}
+
+/**
+ * Pattern for view exported properties output
+ */
+val propertyPattern = Pattern.compile("^(([\\s\\S]+):)?([\\s\\S]+)=([\\d]+),([\\s\\S]+)$")
+
+val NULL: String = "null"
+
+/**
+ * Convert view dump to properties
+ */
+fun String.formatToExportedProperties(): Map<String, MutableList<ViewExportedProperty>> {
+    val result = mutableMapOf<String, MutableList<ViewExportedProperty>>()
+    val props = split(" ")
+    for (prop in props) {
+        val matcher = propertyPattern.matcher(prop)
+        if (matcher.find()) {
+            val category = matcher.group(2) ?: NULL
+            val name = matcher.group(3) ?: continue
+            val length = matcher.group(4)?.toIntOrNull() ?: continue
+            val value = matcher.group(5) ?: continue
+            result.computeIfAbsent(category) { _ -> mutableListOf() }
+                .add(ViewExportedProperty(category, name, length, value))
+        }
+    }
+    return result
 }

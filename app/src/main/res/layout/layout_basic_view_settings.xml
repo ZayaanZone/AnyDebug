@@ -95,6 +95,20 @@
         android:text="@string/sample_text"
         app:preference_title="@string/title_context" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.PreferenceView
+        android:id="@+id/properties_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:preference_arrow="true"
+        app:preference_title="@string/title_properties" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/preview_children_container"

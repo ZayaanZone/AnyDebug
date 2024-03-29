@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.hhvvg.anydebug.R
+import com.hhvvg.anydebug.view.ActivityPreviewWindow
 import com.hhvvg.anydebug.view.SettingContent
 import com.hhvvg.anydebug.view.factory.command.TextCommand
 import com.hhvvg.anydebug.view.factory.command.TextMaxLinesCommand
@@ -31,7 +32,7 @@ import com.hhvvg.anydebug.view.preference.InputPreferenceView
 /**
  * Settings factory for a TextView
  */
-class TextViewFactory : BasicViewFactory() {
+class TextViewFactory(window: ActivityPreviewWindow) : BasicViewFactory(window) {
 
     override fun onCreate(
         targetView: View,

@@ -15,14 +15,28 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/title"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="0dp"
-    android:paddingBottom="5dp"
-    android:text="@string/sample_text"
-    android:textColor="?attr/colorOnSurfaceVariant"
-    android:textSize="14sp" />
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/name_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:textColor="?attr/colorOnSurface"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/value_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="end"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textIsSelectable="true" />
+
+</LinearLayout>

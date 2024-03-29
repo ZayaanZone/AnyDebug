@@ -15,15 +15,18 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.hhvvg.anydebug.view
+package com.hhvvg.anydebug.fragment
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.KeyEvent
 import android.widget.FrameLayout
-import com.hhvvg.anydebug.utils.Logger
 
-class DecorView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) :
+class ActivitylessFragmentContainer(
+    context: Context,
+    attrs: AttributeSet?,
+    defStyleAttr: Int,
+    defStyleRes: Int
+) :
     FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     constructor(context: Context)
@@ -36,18 +39,7 @@ class DecorView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defSt
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : this(context, attrs, defStyleAttr, 0)
 
-    private var backInvokedCallback: OnBackInvokedCallback? = null
-
-
-    fun setOnBackInvokedCallback(listener: OnBackInvokedCallback) {
-        backInvokedCallback = listener
-    }
-
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (event.action == KeyEvent.ACTION_UP && event.keyCode == KeyEvent.KEYCODE_BACK) {
-            backInvokedCallback?.onBackInvoked()
-            return true
-        }
-        return super.dispatchKeyEvent(event)
+    val fragmentManager by lazy {
+        ActivitylessFragmentManager(this)
     }
 }

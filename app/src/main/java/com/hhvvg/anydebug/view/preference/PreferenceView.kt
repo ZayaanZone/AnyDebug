@@ -19,8 +19,10 @@ package com.hhvvg.anydebug.view.preference
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.hhvvg.anydebug.R
 
 /**
@@ -34,6 +36,9 @@ class PreferenceView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, 
 
     private val titleView: TextView
         get() = findViewById(R.id.title_view)
+
+    private val arrowImage: ImageView
+        get() = findViewById(R.id.arrow)
 
     var summary: CharSequence?
         get() = summaryView.text
@@ -62,6 +67,7 @@ class PreferenceView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.PreferenceView)
         titleView.text = ta.getText(R.styleable.PreferenceView_preference_title)
         summaryView.text = ta.getText(R.styleable.PreferenceView_preference_summary)
+        arrowImage.isVisible = ta.getBoolean(R.styleable.PreferenceView_preference_arrow, false)
         ta.recycle()
     }
 

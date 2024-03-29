@@ -31,6 +31,9 @@ import android.view.WindowManager
 import android.widget.Switch
 import androidx.core.view.isVisible
 import com.hhvvg.anydebug.R
+import com.hhvvg.anydebug.fragment.ActivitylessFragmentContainer
+import com.hhvvg.anydebug.fragment.MainPanelFragment
+import com.hhvvg.anydebug.utils.Logger
 import com.hhvvg.anydebug.utils.getWindowDisplayFrame
 import com.hhvvg.anydebug.utils.override
 import com.hhvvg.anydebug.view.remote.RemoteFactoryImpl
@@ -48,9 +51,20 @@ class ActivityPreviewWindow(private val activity: Activity) : OnTouchListener, W
     private var activityTouchHookToken: Unhook? = null
     private val dragBar: View by lazy { contentView.findViewById(R.id.bottom_drag_bar) }
     private val editSwitch: Switch by lazy { contentView.findViewById(R.id.edit_switch) }
-    private val maxWindowView: ViewSettingsContainer by lazy { contentView.findViewById(R.id.max_window_container) }
+    private val maxWindowView: ViewGroup by lazy { contentView.findViewById(R.id.max_window_container) }
     private val miniWindowView: View by lazy { contentView.findViewById(R.id.mini_window_container) }
     private val previewList: PreviewList by lazy { contentView.findViewById(R.id.preview_list) }
+    private val activitylessContainer: ActivitylessFragmentContainer by lazy {
+        contentView.findViewById(
+            R.id.activityless_fragment_container
+        )
+    }
+    val fragmentManager by lazy {
+        activitylessContainer.fragmentManager
+    }
+    val mainPanelFragment by lazy {
+        MainPanelFragment(this, activity.window.decorView)
+    }
 
     private val remoteInflater by lazy {
         RemoteFactoryImpl()
@@ -61,7 +75,7 @@ class ActivityPreviewWindow(private val activity: Activity) : OnTouchListener, W
     }
 
     private val onPreviewClickListener: OnClickListener = OnClickListener {
-        maxWindowView.setTargetView(it)
+        mainPanelFragment.setTargetView(it)
         windowController.maximizeWindow()
     }
 
@@ -95,10 +109,11 @@ class ActivityPreviewWindow(private val activity: Activity) : OnTouchListener, W
             handleActivityTouchStateChanged(isChecked)
         }
         previewList.setOnPreviewClickListener(onPreviewClickListener)
-        maxWindowView.setOnViewRemoveListener(onViewRemoveListener)
-        maxWindowView.setOnCommitListener(onViewCommitListener)
+        mainPanelFragment.setOnViewRemoveListener(onViewRemoveListener)
+        mainPanelFragment.setOnCommitListener(onViewCommitListener)
         setRenderers(mutableListOf(activity.window.decorView))
         windowController.configureWindowParams()
+        fragmentManager.push(mainPanelFragment)
     }
 
     fun show() {
@@ -122,7 +137,9 @@ class ActivityPreviewWindow(private val activity: Activity) : OnTouchListener, W
     }
 
     override fun onBackInvoked() {
-        windowController.minimizeWindow()
+        if (!fragmentManager.popIfNotLast()) {
+            windowController.minimizeWindow()
+        }
     }
 
     override fun getParentWindowFrame(): Rect {
@@ -297,5 +314,13 @@ class ActivityPreviewWindow(private val activity: Activity) : OnTouchListener, W
 
     private fun setRenderers(renderers: List<View>) {
         previewList.updatePreviewItems(renderers)
+    }
+
+    override fun onMinimize() {
+        while (fragmentManager.popIfNotLast(animate = false)) { }
+    }
+
+    override fun onMaximize() {
+
     }
 }

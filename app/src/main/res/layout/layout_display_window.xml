@@ -22,8 +22,8 @@
     android:layout_width="120dp"
     android:layout_height="200dp"
     android:background="@drawable/display_window_background"
-    android:outlineProvider="background"
     android:clipToOutline="true"
+    android:outlineProvider="background"
     tools:targetApi="s">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,11 +83,17 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.hhvvg.anydebug.view.ViewSettingsContainer
+    <FrameLayout
         android:id="@+id/max_window_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <com.hhvvg.anydebug.fragment.ActivitylessFragmentContainer
+            android:id="@+id/activityless_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/bottom_drag_bar"

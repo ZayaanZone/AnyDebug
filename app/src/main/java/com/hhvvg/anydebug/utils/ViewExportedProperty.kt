@@ -15,23 +15,11 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.hhvvg.anydebug.view
+package com.hhvvg.anydebug.utils
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.hhvvg.anydebug.view.factory.BasicViewFactory
-import com.hhvvg.anydebug.view.factory.ImageViewFactory
-import com.hhvvg.anydebug.view.factory.TextViewFactory
-
-object SettingsFactoryManager {
-
-    fun createFactory(window: ActivityPreviewWindow, target: View): SettingsFactory {
-        return when (target) {
-            is TextView -> TextViewFactory(window)
-            is ImageView -> ImageViewFactory(window)
-            else -> BasicViewFactory(window)
-        }
-    }
-
-}
+data class ViewExportedProperty(
+    val category: String?,
+    val name: String,
+    val length: Int,
+    val value: Any
+)

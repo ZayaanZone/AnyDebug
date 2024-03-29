@@ -51,4 +51,8 @@ interface WindowClient {
         width: Int,
         height: Int
     )
+
+    fun onMinimize()
+
+    fun onMaximize()
 }

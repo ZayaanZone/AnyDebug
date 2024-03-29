@@ -22,6 +22,16 @@ import android.graphics.Canvas
 import android.graphics.RenderNode
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewDebug
+import com.hhvvg.anydebug.utils.call
+import com.hhvvg.anydebug.utils.dumpView
+import com.hhvvg.anydebug.utils.formatToExportedProperties
+import de.robv.android.xposed.XposedBridge
+import java.io.BufferedOutputStream
+import java.io.BufferedWriter
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
+import java.io.StringWriter
 import kotlin.math.min
 
 /**

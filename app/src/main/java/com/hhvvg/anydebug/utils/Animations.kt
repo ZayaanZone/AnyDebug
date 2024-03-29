@@ -15,23 +15,38 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.hhvvg.anydebug.view
+package com.hhvvg.anydebug.utils
 
+import android.util.FloatProperty
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.hhvvg.anydebug.view.factory.BasicViewFactory
-import com.hhvvg.anydebug.view.factory.ImageViewFactory
-import com.hhvvg.anydebug.view.factory.TextViewFactory
 
-object SettingsFactoryManager {
-
-    fun createFactory(window: ActivityPreviewWindow, target: View): SettingsFactory {
-        return when (target) {
-            is TextView -> TextViewFactory(window)
-            is ImageView -> ImageViewFactory(window)
-            else -> BasicViewFactory(window)
-        }
+val SCALE = object : FloatProperty<View>("scaleX") {
+    override fun get(view: View): Float {
+        return view.scaleX
     }
 
+    override fun setValue(view: View, value: Float) {
+        view.scaleX = value
+        view.scaleY = value
+    }
+}
+
+val TRANSLATION_X = object : FloatProperty<View>("translationX") {
+    override fun setValue(view: View, value: Float) {
+        view.translationX = value
+    }
+
+    override fun get(view: View): Float {
+        return view.translationX
+    }
+}
+
+val ALPHA = object : FloatProperty<View>("alpha") {
+    override fun setValue(view: View, value: Float) {
+        view.alpha = value
+    }
+
+    override fun get(view: View): Float {
+        return view.alpha
+    }
 }

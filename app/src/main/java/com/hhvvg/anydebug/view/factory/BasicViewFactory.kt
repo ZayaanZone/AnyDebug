@@ -24,15 +24,16 @@ import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.hhvvg.anydebug.R
-import com.hhvvg.anydebug.utils.findTargetAncestor
+import com.hhvvg.anydebug.fragment.ViewPropertiesFragment
+import com.hhvvg.anydebug.utils.Logger
 import com.hhvvg.anydebug.utils.ltrb
 import com.hhvvg.anydebug.utils.paddingLtrb
 import com.hhvvg.anydebug.utils.reverse
+import com.hhvvg.anydebug.view.ActivityPreviewWindow
 import com.hhvvg.anydebug.view.PreviewList
 import com.hhvvg.anydebug.view.PreviewView
 import com.hhvvg.anydebug.view.SettingContent
 import com.hhvvg.anydebug.view.SettingsFactory
-import com.hhvvg.anydebug.view.ViewSettingsContainer
 import com.hhvvg.anydebug.view.factory.command.FactoryCommand
 import com.hhvvg.anydebug.view.factory.command.HeightCommand
 import com.hhvvg.anydebug.view.factory.command.MarginLtrbCommand
@@ -47,7 +48,7 @@ import kotlin.reflect.KClass
 /**
  * Default implementation for creating settings
  */
-open class BasicViewFactory : SettingsFactory {
+open class BasicViewFactory(protected val window: ActivityPreviewWindow) : SettingsFactory {
 
     private val commandQueue = mutableMapOf<KClass<*>, FactoryCommand>()
 
@@ -74,16 +75,18 @@ open class BasicViewFactory : SettingsFactory {
         val dividerMargin = view.findViewById<View>(R.id.divider_margin)
         val removeButton = view.findViewById<View>(R.id.remove_view)
         val parentButton = view.findViewById<View>(R.id.parent_view)
+        val propertiesPref = view.findViewById<View>(R.id.properties_info)
 
+        propertiesPref.setOnClickListener {
+            window.fragmentManager.push(ViewPropertiesFragment(targetView))
+        }
         removeButton.isVisible = targetView.parent is View
         removeButton.setOnClickListener {
-            parent.findTargetAncestor(ViewSettingsContainer::class.java)
-                ?.removeTargetView()
+            window.mainPanelFragment.removeTargetView()
         }
         parentButton.isVisible = targetView.parent is View
         parentButton.setOnClickListener {
-            parent.findTargetAncestor(ViewSettingsContainer::class.java)
-                ?.setTargetView(targetView.parent as View)
+            window.mainPanelFragment.setTargetView(targetView.parent as View)
         }
         paddingPreference.text = targetView.paddingLtrb
         val viewParams = targetView.layoutParams
@@ -109,7 +112,7 @@ open class BasicViewFactory : SettingsFactory {
             previewContainer.isVisible = false
         }
         previewList.setOnPreviewClickListener {
-            previewList.findTargetAncestor(ViewSettingsContainer::class.java)?.setTargetView(it)
+            window.mainPanelFragment.setTargetView(it)
         }
 
         visibilityPreference.setOnCheckChangedListener { _, id ->

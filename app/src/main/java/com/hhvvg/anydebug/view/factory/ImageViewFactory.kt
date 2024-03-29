@@ -24,6 +24,7 @@ import android.widget.ImageView
 import android.widget.ImageView.ScaleType
 import com.hhvvg.anydebug.R
 import com.hhvvg.anydebug.utils.reverse
+import com.hhvvg.anydebug.view.ActivityPreviewWindow
 import com.hhvvg.anydebug.view.SettingContent
 import com.hhvvg.anydebug.view.factory.command.ImageScaleTypeCommand
 import com.hhvvg.anydebug.view.factory.command.ImageUrlCommand
@@ -33,7 +34,7 @@ import com.hhvvg.anydebug.view.preference.OptionsPreferenceView
 /**
  * Settings factory for a ImageView
  */
-class ImageViewFactory : BasicViewFactory() {
+class ImageViewFactory(window: ActivityPreviewWindow) : BasicViewFactory(window) {
 
     override fun onCreate(
         targetView: View,
