@@ -38,6 +38,11 @@ import com.hhvvg.anydebug.view.factory.command.FactoryCommand
 import com.hhvvg.anydebug.view.factory.command.HeightCommand
 import com.hhvvg.anydebug.view.factory.command.MarginLtrbCommand
 import com.hhvvg.anydebug.view.factory.command.PaddingLtrbCommand
+import com.hhvvg.anydebug.view.factory.command.ScaleXCommand
+import com.hhvvg.anydebug.view.factory.command.ScaleYCommand
+import com.hhvvg.anydebug.view.factory.command.TranXCommand
+import com.hhvvg.anydebug.view.factory.command.TranYCommand
+import com.hhvvg.anydebug.view.factory.command.TranZCommand
 import com.hhvvg.anydebug.view.factory.command.VisibilityCommand
 import com.hhvvg.anydebug.view.factory.command.WidthCommand
 import com.hhvvg.anydebug.view.preference.InputPreferenceView
@@ -76,7 +81,67 @@ open class BasicViewFactory(protected val window: ActivityPreviewWindow) : Setti
         val removeButton = view.findViewById<View>(R.id.remove_view)
         val parentButton = view.findViewById<View>(R.id.parent_view)
         val propertiesPref = view.findViewById<View>(R.id.properties_info)
+        val scaleXPref = view.findViewById<InputPreferenceView>(R.id.scale_x_input)
+        val scaleYPref = view.findViewById<InputPreferenceView>(R.id.scale_y_input)
+        val tranXPref = view.findViewById<InputPreferenceView>(R.id.tran_x_input)
+        val tranYPref = view.findViewById<InputPreferenceView>(R.id.tran_y_input)
+        val tranZPref = view.findViewById<InputPreferenceView>(R.id.tran_z_input)
 
+        tranZPref.apply {
+            text = targetView.translationZ.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    TranZCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.translationZ
+                    )
+                )
+            }
+        }
+        scaleXPref.apply {
+            text = targetView.scaleX.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    ScaleXCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.scaleX
+                    )
+                )
+            }
+        }
+        scaleYPref.apply {
+            text = targetView.scaleY.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    ScaleYCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.scaleY
+                    )
+                )
+            }
+        }
+        tranXPref.apply {
+            text = targetView.translationX.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    TranXCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.translationX
+                    )
+                )
+            }
+        }
+        tranYPref.apply {
+            text = targetView.translationY.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    TranYCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.translationY
+                    )
+                )
+            }
+        }
         propertiesPref.setOnClickListener {
             window.fragmentManager.push(ViewPropertiesFragment(targetView))
         }

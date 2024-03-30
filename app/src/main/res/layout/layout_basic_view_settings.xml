@@ -223,4 +223,69 @@
         android:inputType="text"
         app:preference_summary="@string/view_ltrb_format_hint"
         app:preference_title="@string/title_margin" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/scale_x_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:preference_title="@string/title_scale_x" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/scale_y_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:preference_title="@string/title_scale_y" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/tran_x_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned|numberDecimal"
+        app:preference_title="@string/title_tran_x" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/tran_y_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned|numberDecimal"
+        app:preference_title="@string/title_tran_y" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/tran_z_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned|numberDecimal"
+        app:preference_title="@string/title_tran_z" />
 </LinearLayout>

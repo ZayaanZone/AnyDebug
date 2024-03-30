@@ -5,7 +5,7 @@
     <string name="touch_indicator_desc">TouchIndicator</string>
     <string name="sample_text">Hello world</string>
     <string name="long_sample_text">Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.Hello world.</string>
-    <string name="title_basic_view">Basics</string>
+    <string name="title_basic_view">View</string>
     <string name="title_context">Context</string>
     <string name="title_class">Class</string>
     <string name="title_children">Children</string>
@@ -26,7 +26,10 @@
     <string name="title_image_url">Image Url</string>
     <string name="title_image_scale_type">Scale Type</string>
     <string name="title_properties">Properties</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_proj">About Project</string>
+    <string name="title_scale_x">Scale X</string>
+    <string name="title_scale_y">Scale Y</string>
+    <string name="title_tran_x">Translation X</string>
+    <string name="title_tran_y">Translation Y</string>
+    <string name="title_tran_z">Translation Z</string>
 </resources>
