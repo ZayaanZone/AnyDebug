@@ -288,4 +288,82 @@
         android:layout_height="wrap_content"
         android:inputType="number|numberSigned|numberDecimal"
         app:preference_title="@string/title_tran_z" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/alpha_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal"
+        app:preference_title="@string/title_alpha" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/scroll_x_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned"
+        app:preference_title="@string/title_scroll_x" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/scroll_y_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned"
+        app:preference_title="@string/title_scroll_y" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/rotation_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal|numberSigned"
+        app:preference_title="@string/title_rotation" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/rotation_x_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal|numberSigned"
+        app:preference_title="@string/title_rotation_x" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorSurface" />
+
+    <com.hhvvg.anydebug.view.preference.InputPreferenceView
+        android:id="@+id/rotation_y_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal|numberSigned"
+        app:preference_title="@string/title_rotation_y" />
 </LinearLayout>

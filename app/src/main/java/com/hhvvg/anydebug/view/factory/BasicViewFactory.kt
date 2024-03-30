@@ -25,7 +25,6 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.hhvvg.anydebug.R
 import com.hhvvg.anydebug.fragment.ViewPropertiesFragment
-import com.hhvvg.anydebug.utils.Logger
 import com.hhvvg.anydebug.utils.ltrb
 import com.hhvvg.anydebug.utils.paddingLtrb
 import com.hhvvg.anydebug.utils.reverse
@@ -34,12 +33,18 @@ import com.hhvvg.anydebug.view.PreviewList
 import com.hhvvg.anydebug.view.PreviewView
 import com.hhvvg.anydebug.view.SettingContent
 import com.hhvvg.anydebug.view.SettingsFactory
+import com.hhvvg.anydebug.view.factory.command.AlphaCommand
 import com.hhvvg.anydebug.view.factory.command.FactoryCommand
 import com.hhvvg.anydebug.view.factory.command.HeightCommand
 import com.hhvvg.anydebug.view.factory.command.MarginLtrbCommand
 import com.hhvvg.anydebug.view.factory.command.PaddingLtrbCommand
+import com.hhvvg.anydebug.view.factory.command.RotationCommand
+import com.hhvvg.anydebug.view.factory.command.RotationXCommand
+import com.hhvvg.anydebug.view.factory.command.RotationYCommand
 import com.hhvvg.anydebug.view.factory.command.ScaleXCommand
 import com.hhvvg.anydebug.view.factory.command.ScaleYCommand
+import com.hhvvg.anydebug.view.factory.command.ScrollXCommand
+import com.hhvvg.anydebug.view.factory.command.ScrollYCommand
 import com.hhvvg.anydebug.view.factory.command.TranXCommand
 import com.hhvvg.anydebug.view.factory.command.TranYCommand
 import com.hhvvg.anydebug.view.factory.command.TranZCommand
@@ -86,7 +91,79 @@ open class BasicViewFactory(protected val window: ActivityPreviewWindow) : Setti
         val tranXPref = view.findViewById<InputPreferenceView>(R.id.tran_x_input)
         val tranYPref = view.findViewById<InputPreferenceView>(R.id.tran_y_input)
         val tranZPref = view.findViewById<InputPreferenceView>(R.id.tran_z_input)
+        val alphaPref = view.findViewById<InputPreferenceView>(R.id.alpha_input)
+        val scrollXPref = view.findViewById<InputPreferenceView>(R.id.scroll_x_input)
+        val scrollYPref = view.findViewById<InputPreferenceView>(R.id.scroll_y_input)
+        val rotationPref = view.findViewById<InputPreferenceView>(R.id.rotation_input)
+        val rotationXPref = view.findViewById<InputPreferenceView>(R.id.rotation_x_input)
+        val rotationYPref = view.findViewById<InputPreferenceView>(R.id.rotation_y_input)
 
+        rotationPref.apply {
+            text = targetView.rotation.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    RotationCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.rotation
+                    )
+                )
+            }
+        }
+        rotationXPref.apply {
+            text = targetView.rotationX.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    RotationXCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.rotationX
+                    )
+                )
+            }
+        }
+        rotationYPref.apply {
+            text = targetView.rotationY.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    RotationYCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.rotationY
+                    )
+                )
+            }
+        }
+        alphaPref.apply {
+            text = targetView.alpha.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    AlphaCommand(
+                        targetView,
+                        it.toString().toFloatOrNull() ?: targetView.alpha
+                    )
+                )
+            }
+        }
+        scrollXPref.apply {
+            text = targetView.scrollX.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    ScrollXCommand(
+                        targetView,
+                        it.toString().toIntOrNull() ?: targetView.scrollX
+                    )
+                )
+            }
+        }
+        scrollYPref.apply {
+            text = targetView.scrollY.toString()
+            setOnTextChangedListener {
+                addCommand(
+                    ScrollYCommand(
+                        targetView,
+                        it.toString().toIntOrNull() ?: targetView.scrollY
+                    )
+                )
+            }
+        }
         tranZPref.apply {
             text = targetView.translationZ.toString()
             setOnTextChangedListener {

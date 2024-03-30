@@ -33,4 +33,10 @@
     <string name="title_tran_y">Translation Y</string>
     <string name="title_tran_z">Translation Z</string>
     <string name="hint_search_properties">Search Properties</string>
+    <string name="title_alpha">Alpha</string>
+    <string name="title_scroll_x">Scroll X</string>
+    <string name="title_scroll_y">Scroll Y</string>
+    <string name="title_rotation">Rotation</string>
+    <string name="title_rotation_x">Rotation X</string>
+    <string name="title_rotation_y">Rotation Y</string>
 </resources>
