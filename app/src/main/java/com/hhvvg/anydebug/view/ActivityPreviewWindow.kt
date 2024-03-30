@@ -132,7 +132,7 @@ class ActivityPreviewWindow(private val activity: Activity) : OnTouchListener, W
         shown = false
         activityTouchHookToken?.unhook()
         if (decorView.isAttachedToWindow) {
-            windowManager.removeView(decorView)
+            windowManager.removeViewImmediate(decorView)
         }
     }
 
