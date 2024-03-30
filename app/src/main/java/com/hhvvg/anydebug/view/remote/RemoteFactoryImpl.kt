@@ -38,7 +38,7 @@ class RemoteFactoryImpl : RemoteFactory {
         attachToRoot: Boolean
     ): View {
         val layoutId = context.moduleResources.getIdentifier(name, "layout", APPLICATION_ID)
-        val moduleContext = context.topContext().createModuleContext()
+        val moduleContext = context.createModuleContext()
         val layout = context.moduleResources.getLayout(layoutId)
         if (layoutId > 0) {
             return LayoutInflater.from(moduleContext).inflate(layout, root, attachToRoot)

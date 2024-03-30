@@ -161,7 +161,7 @@ fun Context.createModuleContext(): Context {
     val theme = moduleResources.newTheme().apply {
         applyStyle(themeId, true)
     }
-    return ModuleContext(this, theme)
+    return ModuleContext(topContext(), theme)
 }
 
 /**
