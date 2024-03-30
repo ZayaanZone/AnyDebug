@@ -3,10 +3,13 @@ package com.hhvvg.anydebug.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +23,10 @@ import com.hhvvg.anydebug.utils.formatToExportedProperties
 class ViewPropertiesFragment(private val targetView: View) : Fragment() {
 
     private lateinit var propertiesRv: RecyclerView
+    private lateinit var propertiesSearchView: EditText
     private val items = mutableListOf<ViewExportedProperty>()
     private val adapter = PropertiesAdapter(items)
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,15 +36,34 @@ class ViewPropertiesFragment(private val targetView: View) : Fragment() {
             this.adapter = this@ViewPropertiesFragment.adapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        items.addAll(
-            targetView.dumpView().formatToExportedProperties().values.flatten()
-                .sortedBy { it.name })
-        adapter.notifyDataSetChanged()
+        propertiesSearchView = view.findViewById(R.id.type_to_search)
+        propertiesSearchView.doOnTextChanged { text, _, _, _ ->
+            updatePropertiesList(text)
+        }
+        updatePropertiesList()
         return view
     }
 
     override fun getContext(): Context? {
         return targetView.context
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updatePropertiesList(filter: CharSequence? = null) {
+        val props = targetView
+            .dumpView()
+            .formatToExportedProperties().values.flatten()
+            .filter {
+                if (TextUtils.isEmpty(filter)) {
+                    true
+                } else {
+                    it.name.contains(filter!!, true)
+                }
+            }
+            .sortedBy { it.name }
+        items.clear()
+        items.addAll(props)
+        adapter.notifyDataSetChanged()
     }
 }
 

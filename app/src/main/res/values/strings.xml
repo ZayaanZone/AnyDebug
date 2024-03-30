@@ -32,4 +32,5 @@
     <string name="title_tran_x">Translation X</string>
     <string name="title_tran_y">Translation Y</string>
     <string name="title_tran_z">Translation Z</string>
+    <string name="hint_search_properties">Search Properties</string>
 </resources>
