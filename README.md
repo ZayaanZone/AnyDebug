@@ -53,6 +53,10 @@ Details page shows basic information and modification control. After modifing vi
 
 The entry is `Details page` -> `Properties`, which shows all exported properties in a view. These properties are annotated with `ViewDebug.ExportedProperty`.
 
+## Quick setting
+
+Add the quick setting button to notification control panel, you can toggle the state of the hook.
+
 ## Max window
 
 When the window is maximized, just drag the bottom bar and fling it to turn it back into a mini window.

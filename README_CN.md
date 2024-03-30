@@ -57,6 +57,10 @@
 
 当窗口被最大化之后，只需要拖动底部的拖拽条并甩动，即可最小化窗口。
 
+## 快速设置
+
+通过在控制面板中添加快捷开关按钮，你可以控制 hook 的开关状态。
+
 # 示例
 
 | ![sample0.png](raw/sample0.png) | ![sample1.png](raw/sample1.png) | ![sample1.png](raw/sample2.png) | ![sample1.png](raw/sample3.png) |
