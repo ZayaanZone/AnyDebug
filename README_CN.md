@@ -23,6 +23,40 @@
 + 属性查看器
 + 或许还有更多...
 
+# 待办
+
++ 提取为一个库，用来集成进应用里调试用于调试
+
+# 用法
+
+## 安装此应用
+
+只需要从[发行页面](https://github.com/gitofleonardo/AnyDebug/releases/latest)中获取最新的安装包，然后安装即可。
+
+## 勾选应用
+
+在 `LSPosed` 或者是其他的 `xposed` 框架中勾选你需要 hook 的应用。勾选完成后不要忘了强行停止应用以使 hook 生效。
+
+## 迷你窗口
+
+迷你窗口展示了 `View` 的预览, 选择开关, 以及底部的拖动条.
+
++ 点击预览以进入 `View` 的详情页
++ 打开选择开关来开始选择 `View`。当开关打开的时候，触摸屏幕可以获取距离触摸点最近的所有 `View`
++ 按住底部拖动条并拖动，就可以移动迷你窗口在屏幕上的位置
+
+## 详情页
+
+详情页展示了 `View` 的基础信息，以及编辑控制. 在编辑完成信息之后，点击下方的悬浮按钮即可应用变更。
+
+## 属性页
+
+入口在 `详情页` -> `Properties` 处, 显示了该 `View` 所有的对外属性. 这些属性通常是带了 `ViewDebug.ExportedProperty` 注解的。
+
+## 最大化窗口
+
+当窗口被最大化之后，只需要拖动底部的拖拽条并甩动，即可最小化窗口。
+
 # 示例
 
 | ![sample0.png](raw/sample0.png) | ![sample1.png](raw/sample1.png) | ![sample1.png](raw/sample2.png) | ![sample1.png](raw/sample3.png) |
